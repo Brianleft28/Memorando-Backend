@@ -9,11 +9,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-
 router(app);
 
-app.use((req, res) => {
-    res.status(200).json({ hola: 'respuesta' });
-});
+  
+
 
 export default app;

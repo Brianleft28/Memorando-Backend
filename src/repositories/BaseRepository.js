@@ -18,7 +18,7 @@ export default class BaseRepository {
 
     async find() {
         try {
-            const query = `SELECT * FROM ${this.entity} ORDER BY create_at ASC`;
+            const query = `SELECT * FROM ${this.entity}`;
             const result = await this.db.executeQuery(query);
             return result;
         } catch (error) {

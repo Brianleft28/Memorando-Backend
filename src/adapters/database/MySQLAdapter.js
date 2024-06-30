@@ -1,5 +1,5 @@
 // @ts-check
-import mysql from 'mysql';
+import mysql from 'mysql2'; // Change this line to use mysql2
 import config from '../../config.js';
 
 export default class MySQLAdapter {
@@ -16,8 +16,8 @@ export default class MySQLAdapter {
         this.connection = mysql.createConnection({
             host: config.db.host,
             user: config.db.user,
-            password: config.db.pass,
-            database: config.db.name,
+            password: config.db.password,
+            database: config.db.database,
         });
         this.#connect();
     }
@@ -37,11 +37,11 @@ export default class MySQLAdapter {
     }
 
     /**
-     * Ejecutar una consulta en la base de datos
+     * Execute a query in the database
      * @name executeQuery
-     * @param {string} query - Consulta SQL
-     * @param {any[]} params - Parámetros para la consulta
-     * @returns {Promise<any>} - Promesa que se resuelve con el resultado de la consulta
+     * @param {string} query - SQL query
+     * @param {any[]} params - Parameters for the query
+     * @returns {Promise<any>} - Promise that resolves with the result of the query
      */
     executeQuery = (query, params = []) => {
         return new Promise((resolve, reject) => {
