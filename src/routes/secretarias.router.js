@@ -14,12 +14,10 @@ import {
 
 const router = express.Router();
 
-
-
 router.get('/secretarias', index);
 router.post('/secretarias', store);
 router.get('/secretarias/:id', show);
-router.patch('/secretarias/:id', update);
+router.put('/secretarias/:id', update);
 router.delete('/secretarias/:id', remove);
 
 export default router;

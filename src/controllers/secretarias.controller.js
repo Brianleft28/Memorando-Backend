@@ -19,7 +19,6 @@ export async function index(req, res) {
     try {
         const result = await secretariasRepository.find();
         response.success(req, res, result, 200);
-
     } catch (error) {
         console.log(error);
         response.error(req, res, 'Hubo un error.!', 400);
@@ -41,7 +40,7 @@ export async function show(req, res) {
         return;
     }
     try {
-        const result = await memoRepository.findOne(id);
+        const result = await secretariasRepository.findOne(id);
         response.success(req, res, result, 200);
     } catch (error) {
         response.error(req, res, 'Hubo un error.!', 400);
@@ -65,7 +64,7 @@ export async function store(req, res) {
     try {
         const result = await secretariasRepository.create(body);
         response.success(req, res, result, 200);
-        console.log(result)
+        console.log(result);
     } catch (error) {
         console.log('error: ', error);
         response.error(req, res, 'NOOO.!', 400);
@@ -79,7 +78,8 @@ export async function store(req, res) {
  * @returns {Promise<void>}
  */
 export async function update(req, res) {
-    const id = parseInt(req.params.id); // Convertimos el valor de req.params.id a un número
+    const id = parseInt(req.params.id);
+
     const body = req.body;
 
     if (!id || isNaN(id)) {
@@ -91,7 +91,7 @@ export async function update(req, res) {
         response.error(req, res, 'Parametro indefinido.!', 400);
     }
     try {
-        const result = await memoRepository.update(id, body);
+        const result = await secretariasRepository.update(id, body);
         response.success(req, res, result, 200);
     } catch (error) {
         response.error(req, res, 'Hubo un error.!', 400);
@@ -112,9 +112,11 @@ export async function remove(req, res) {
         return;
     }
     try {
-        const result = await memoRepository.delete(id);
+        const result = await secretariasRepository.delete(id);
+        console.log(result);
         response.success(req, res, result, 200);
     } catch (error) {
+        console.error(error);
         response.error(req, res, 'Hubo un error.!', 400);
     }
 }

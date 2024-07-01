@@ -1,5 +1,5 @@
 // @ts-check
-import mysql from 'mysql2'; // Change this line to use mysql2
+import mysql from 'mysql'; // Change this line to use mysql2
 import config from '../../config.js';
 
 export default class MySQLAdapter {

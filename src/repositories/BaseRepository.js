@@ -70,7 +70,6 @@ export default class BaseRepository {
             const result = await this.db.executeQuery(query, [params, id]); // Utilizando un array de parámetros
             return result;
         } catch (error) {
-            // console.error(error);
             throw new Error(error.message);
         }
     }
