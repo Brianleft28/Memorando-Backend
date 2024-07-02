@@ -17,7 +17,7 @@ const router = express.Router();
 router.get('/memos', index);
 router.post('/memos', store);
 router.get('/memos/:id', show);
-router.patch('/memos/:id', update);
+router.put('/memos/:id', update);
 router.delete('/memos/:id', remove);
 
 export default router;
