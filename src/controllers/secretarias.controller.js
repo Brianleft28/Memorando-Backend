@@ -20,7 +20,6 @@ export async function index(req, res) {
         const result = await secretariasRepository.find();
         response.success(req, res, result, 200);
     } catch (error) {
-        console.log(error);
         response.error(req, res, 'Hubo un error.!', 400);
     }
 }
@@ -55,7 +54,6 @@ export async function show(req, res) {
  */
 export async function store(req, res) {
     const body = req.body;
-    console.log('body', body);
 
     if (!body) {
         response.error(req, res, 'Parametro indefinido.!', 400);
@@ -64,10 +62,11 @@ export async function store(req, res) {
     try {
         const result = await secretariasRepository.create(body);
         response.success(req, res, result, 200);
-        console.log(result);
+        return result;
     } catch (error) {
-        console.log('error: ', error);
-        response.error(req, res, 'NOOO.!', 400);
+        
+        return response.error(req, res, 'Error en la base de datos.', error , 400);
+
     }
 }
 

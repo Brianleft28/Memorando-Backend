@@ -17,6 +17,7 @@ const router = express.Router();
 router.get('/estados', index);
 router.post('/estados', store);
 router.get('/estados/:id', show);
+
 router.patch('/estados/:id', update);
 router.delete('/estados/:id', remove);
 

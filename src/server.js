@@ -11,7 +11,4 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 router(app);
 
-  
-
-
 export default app;

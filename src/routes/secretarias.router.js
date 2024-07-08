@@ -13,7 +13,7 @@ import {
 } from '../controllers/secretarias.controller.js';
 
 const router = express.Router();
-
+//routas para api
 router.get('/secretarias', index);
 router.post('/secretarias', store);
 router.get('/secretarias/:id', show);

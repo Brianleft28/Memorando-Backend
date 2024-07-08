@@ -14,6 +14,7 @@ export default class BaseRepository {
     /**
      * @name find
      * @returns {Promise<void>}
+
      */
 
     async find() {
@@ -26,6 +27,41 @@ export default class BaseRepository {
             throw new Error(error.message);
         }
     }
+
+    /**
+     * @name findFiltered
+     * @description Obtiene todos los registros de la tabla, filtrados por un left join en la tabla estados y secretarias, para mostrar sus nombres y no sus id.
+     * @returns {Promise<void>}
+     */
+
+    async findFiltered(params = -1) {
+        try {
+            let query = `SELECT
+                            memos.id,
+                            memos.detalle,
+                            memos.fecha,
+                            memos.create_at,
+                            secretarias.nombre AS secretaria_nombre,
+                            estados.estado AS estado_nombre
+                            FROM memos
+                            LEFT JOIN secretarias ON memos.secretaria_id = secretarias.id
+                            LEFT JOIN estados ON memos.estado_id = estados.id`
+
+                            if (params !== -1) {
+                                query += ` WHERE memos.secretaria_id = ${params}`
+                            }
+
+                            query += ' ORDER BY memos.id DESC';
+            const result = await this.db.executeQuery(query);
+            return result;
+        } catch (error) {
+            console.log(error)
+            return error;
+        }
+    }
+
+   
+
 
     /**
      * @name findOne
@@ -87,6 +123,32 @@ export default class BaseRepository {
         } catch (error) {
             // console.error(error);
             throw new Error(error.message);
+        }
+    }
+    /**
+     * @name findIndexFiltered
+     * @description Obtiene todos los registros de la tabla, filtrados por un left join en la tabla estados y secretarias, para mostrar sus nombres y no sus id. De un registro especifico, discriminado por su id.
+     * @returns {Promise<void>}
+     */
+
+    async findIndexFiltered(id) {
+        try {
+            const query = `SELECT
+                            memos.id,
+                            memos.detalle,
+                            memos.fecha,
+                            memos.create_at,
+                            secretarias.nombre AS secretaria_nombre,
+                            estados.estado AS estado_nombre
+                            FROM
+                            memos
+                            LEFT JOIN secretarias ON memos.secretaria_id = secretarias.id
+                            LEFT JOIN estados ON memos.estado_id = estados.id
+                            WHERE memos.id = ?;`;
+            const result = await this.db.executeQuery(query, [id]);
+            return result;
+        } catch (error) {
+            return error;
         }
     }
 }

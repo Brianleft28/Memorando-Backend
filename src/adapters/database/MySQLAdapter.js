@@ -31,7 +31,7 @@ export default class MySQLAdapter {
                 console.log(err.message);
                 return false;
             }
-            console.log('MySQL Connection established!');
+            console.log('Connected to the MySQL server.');
             return true;
         });
     }
